@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ecmo_sim_v2';
+const CACHE_NAME = 'ecmo_sim_v3';
 const urlsToCache = [
   './',
   './index.html',
