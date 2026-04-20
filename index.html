@@ -37,6 +37,7 @@
         button { background-color: #333; color: white; border: none; padding: 12px 10px; cursor: pointer; border-radius: 4px; font-weight: bold; font-size: 13px; transition: 0.1s; }
         button:active { background-color: #666; }
         .btn-ctrl { padding: 8px 16px; margin: 0 4px; font-size: 16px; }
+        .btn-active { background-color: #AA0000 !important; }
         .scenario-btn { flex: 1 1 45%; padding: 14px 5px; font-size: 11px; } 
 
         .mindray-panel { height: 420px; display: flex; flex-direction: column; gap: 4px; padding: 0; background-color: #000; border-radius: 5px; overflow: hidden;}
@@ -79,12 +80,15 @@
         .cm-unit { font-size: 12px; font-weight: bold; }
         .cm-bar-bg { width: 100%; height: 6px; background-color: #d1dde5; border-radius: 3px; margin-top: 5px; }
         .cm-bar-fill { height: 100%; background-color: #d9415c; border-radius: 3px; }
+        .cm-btn { background-color: #0077b3; color: white; border: 2px solid #004d80; width: 45px; height: 40px; border-radius: 5px; font-size: 20px; display: flex; justify-content: center; align-items: center; cursor: pointer; flex: 0 0 auto; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .cm-btn:active { background-color: #005999; transform: translateY(2px); box-shadow: none; }
+        .cm-btn-red { background-color: #cc0000; border-color: #990000; width: 80px; font-size: 14px; letter-spacing: 1px; }
+        .cm-btn-red:active { background-color: #990000; }
         .cm-pressures { display: flex; justify-content: space-around; background-color: #dbeaf2; padding: 6px; border-bottom: 2px solid #fff; flex: 0 0 auto; }
         .cm-pressures .cm-val { font-size: 20px; }
         .cm-pressures .cm-unit { font-size: 10px; }
         
         .lab-btn { width: 100px; background-color: #004466; padding: 12px 5px; font-size: 11px; }
-        .game-overlay { margin-top: 10px; padding: 15px; background-color: #111; color: #fff; text-align: center; font-weight: bold; font-size: 16px; border-radius: 4px; border: 2px solid #333; }
     </style>
 </head>
 <body>
@@ -98,7 +102,7 @@
         <div class="mindray-num-box" style="color:#33ff33;">
             <div class="mindray-title">HR</div>
             <div class="mindray-limits">120<br>50</div>
-            <div id="ui-hr" class="mindray-val">0</div>
+            <div id="ui-hr" class="mindray-val">85</div>
         </div>
     </div>
 
@@ -110,7 +114,7 @@
         <div class="mindray-num-box" style="color:#00eeff;">
             <div class="mindray-title">SpO2</div>
             <div class="mindray-limits">100<br>88</div>
-            <div id="ui-spo2" class="mindray-val">0</div>
+            <div id="ui-spo2" class="mindray-val">95</div>
         </div>
     </div>
 
@@ -122,8 +126,8 @@
         <div class="mindray-num-box" style="color:#ff3333;">
             <div class="mindray-title">ABP</div>
             <div class="mindray-limits">160<br>90</div>
-            <div id="ui-abp-sysdia" class="mindray-val" style="font-size: 24px; margin-top: 18px;">0/0</div>
-            <div id="ui-abp-map" class="mindray-sub">(0)</div>
+            <div id="ui-abp-sysdia" class="mindray-val" style="font-size: 24px; margin-top: 18px;">120/80</div>
+            <div id="ui-abp-map" class="mindray-sub">(93)</div>
         </div>
     </div>
 
@@ -135,7 +139,7 @@
         <div class="mindray-num-box" style="color:#ffcc00;">
             <div class="mindray-title">EtCO2</div>
             <div class="mindray-limits">6.5<br>4.0</div>
-            <div id="ui-etco2" class="mindray-val">0.0</div>
+            <div id="ui-etco2" class="mindray-val">4.2</div>
         </div>
     </div>
 </div>
@@ -159,43 +163,45 @@
     </div>
     
     <div class="ham-readouts">
-        <div class="ham-box"><div class="ham-box-lbl">Ppeak</div><div id="ui-ppeak" class="ham-box-val" style="color:#e09f3e;">0</div></div>
-        <div class="ham-box"><div class="ham-box-lbl">PEEP</div><div id="ui-peep-read" class="ham-box-val" style="color:#e09f3e;">0</div></div>
-        <div class="ham-box"><div class="ham-box-lbl">RR</div><div id="ui-rr-read" class="ham-box-val" style="color:#4caf50;">0</div></div>
-        <div class="ham-box"><div class="ham-box-lbl">I:E</div><div id="ui-ie" class="ham-box-val" style="color:#4caf50; font-size: 16px; margin-top: 8px;">0.00</div></div>
-        <div class="ham-box"><div class="ham-box-lbl">MV</div><div id="ui-mv" class="ham-box-val" style="color:#4db6ac;">0.0</div></div>
-        <div class="ham-box"><div class="ham-box-lbl">VTe</div><div id="ui-vte" class="ham-box-val" style="color:#4db6ac;">0</div></div>
-        <div class="ham-box" style="grid-column: span 2; align-items: center;"><div class="ham-box-lbl" style="text-align: center;">Cdyn ml/cmH2O</div><div id="ui-cdyn" class="ham-box-val" style="color:#fff;">0</div></div>
+        <div class="ham-box"><div class="ham-box-lbl">Ppeak</div><div id="ui-ppeak" class="ham-box-val" style="color:#e09f3e;">24</div></div>
+        <div class="ham-box"><div class="ham-box-lbl">PEEP</div><div id="ui-peep-read" class="ham-box-val" style="color:#e09f3e;">10</div></div>
+        <div class="ham-box"><div class="ham-box-lbl">RR</div><div id="ui-rr-read" class="ham-box-val" style="color:#4caf50;">25</div></div>
+        <div class="ham-box"><div class="ham-box-lbl">I:E</div><div id="ui-ie" class="ham-box-val" style="color:#4caf50; font-size: 16px; margin-top: 8px;">0.43</div></div>
+        <div class="ham-box"><div class="ham-box-lbl">MV</div><div id="ui-mv" class="ham-box-val" style="color:#4db6ac;">6.1</div></div>
+        <div class="ham-box"><div class="ham-box-lbl">VTe</div><div id="ui-vte" class="ham-box-val" style="color:#4db6ac;">245</div></div>
+        <div class="ham-box" style="grid-column: span 2; align-items: center;"><div class="ham-box-lbl" style="text-align: center;">Cdyn ml/cmH2O</div><div id="ui-cdyn" class="ham-box-val" style="color:#fff;">17</div></div>
     </div>
     
-    <div class="ham-bottom" id="vent-controls"></div>
+    <div class="ham-bottom" id="vent-controls">
+        </div>
 </div>
 
 <div class="cm-bezel">
     <div class="cm-controls">
         <div style="display:flex; gap:10px;">
-            <div style="width: 45px; height: 40px; background: #999; border-radius: 5px;"></div>
-            <div style="width: 45px; height: 40px; background: #999; border-radius: 5px;"></div>
+            <div class="cm-btn" onclick="changeVal('rpm', -100, 0, 9000)">▼</div>
+            <div class="cm-btn" onclick="changeVal('rpm', 100, 0, 9000)">▲</div>
         </div>
+        <div class="cm-btn cm-btn-red" onclick="toggleEngine()" id="cm-engine-btn">START</div>
     </div>
     
     <div class="cm-screen">
         <div style="display: flex; justify-content: space-around; padding: 10px; border-bottom: 2px solid #fff; flex: 0 0 auto;">
             <div class="cm-text" style="text-align: center; width: 45%;">
-                <span id="cm-rpm" class="cm-val">0</span> <span class="cm-unit">RPM</span>
-                <div class="cm-bar-bg"><div id="bar-rpm" class="cm-bar-fill" style="width: 0%;"></div></div>
+                <span id="cm-rpm" class="cm-val">3800</span> <span class="cm-unit">RPM</span>
+                <div class="cm-bar-bg"><div id="bar-rpm" class="cm-bar-fill" style="width: 42%;"></div></div>
             </div>
             <div class="cm-text" style="text-align: center; width: 45%;">
-                <span id="cm-flow" class="cm-val">0.00</span> <span class="cm-unit">LPM</span>
-                <div class="cm-bar-bg"><div id="bar-flow" class="cm-bar-fill" style="width: 0%;"></div></div>
+                <span id="cm-flow" class="cm-val">5.49</span> <span class="cm-unit">LPM</span>
+                <div class="cm-bar-bg"><div id="bar-flow" class="cm-bar-fill" style="width: 55%;"></div></div>
             </div>
         </div>
         
         <div class="cm-pressures">
-            <div class="cm-text" style="text-align: center;"><span class="cm-unit">ACC</span><br><span id="cm-acc" class="cm-val">0</span></div>
-            <div class="cm-text" style="text-align: center;"><span class="cm-unit">PRE</span><br><span id="cm-pre" class="cm-val">0</span></div>
-            <div class="cm-text" style="text-align: center;"><span class="cm-unit">PST</span><br><span id="cm-pst" class="cm-val">0</span></div>
-            <div class="cm-text" style="text-align: center;"><span class="cm-unit">DEL</span><br><span id="cm-del" class="cm-val">0</span></div>
+            <div class="cm-text" style="text-align: center;"><span class="cm-unit">ACC</span><br><span id="cm-acc" class="cm-val">-82</span></div>
+            <div class="cm-text" style="text-align: center;"><span class="cm-unit">PRE</span><br><span id="cm-pre" class="cm-val">275</span></div>
+            <div class="cm-text" style="text-align: center;"><span class="cm-unit">PST</span><br><span id="cm-pst" class="cm-val">220</span></div>
+            <div class="cm-text" style="text-align: center;"><span class="cm-unit">DEL</span><br><span id="cm-del" class="cm-val">55</span></div>
         </div>
         
         <div style="flex: 1; position: relative; min-height: 0;">
@@ -212,19 +218,18 @@
 </div>
 
 <div class="panel" style="margin-bottom: 20px;">
-    <div class="panel-title" style="color: #FFA500;">Clinical Interventions</div>
-    
+    <div class="panel-title" style="color: #FFA500;">Scenarios & Emergencies</div>
     <div class="flex-wrap" style="margin-bottom: 10px;">
-        <button class="scenario-btn" style="flex: 1 1 100%; background-color: #006600; font-size: 16px; padding: 16px;" onclick="startGame()">START SIMULATION</button>
+        <button class="scenario-btn" id="btn-phase-early" onclick="setPhase('EARLY')">EARLY VV</button>
+        <button class="scenario-btn btn-active" id="btn-phase-stable" onclick="setPhase('STABLE')">STABLE VV</button>
+        <button class="scenario-btn" id="btn-phase-wean" onclick="setPhase('WEAN')">READY TO WEAN</button>
+        <button class="scenario-btn" id="btn-em-sepsis" onclick="toggleEm('sepsis')">SEPSIS</button>
     </div>
-    
     <div class="flex-wrap" style="padding-bottom: 10px; border-bottom: 1px solid #333;">
-        <button class="scenario-btn" onclick="resolveKink()" style="background-color: #004466;">CHECK / UNKINK LINES</button>
-        <button class="scenario-btn" onclick="resolveClot()" style="background-color: #004466;">CHANGE CIRCUIT</button>
-        <button class="scenario-btn" onclick="resolveWean()" style="background-color: #004466;">DECANNULATE PATIENT</button>
-        <button class="scenario-btn" onclick="dudAction('FLUID BOLUS GIVEN')" style="background-color: #444444;">GIVE FLUID BOLUS</button>
-        <button class="scenario-btn" onclick="dudAction('VASOPRESSORS STARTED')" style="background-color: #444444;">START VASOPRESSORS</button>
-        <button class="scenario-btn" onclick="dudAction('SEDATION INCREASED')" style="background-color: #444444;">INCREASE SEDATION</button>
+        <button class="scenario-btn" id="btn-em-kink" onclick="toggleEm('kink')">KINK</button>
+        <button class="scenario-btn" id="btn-em-clot" onclick="toggleEm('clot')">CLOT</button>
+        <button class="scenario-btn" id="btn-em-recirc" onclick="toggleEm('recirc')">RECIRC</button>
+        <button class="scenario-btn" style="background-color: #666600;" onclick="reposition()">FIX CANNULA</button>
     </div>
     
     <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
@@ -241,30 +246,25 @@
             <div class="lbl-sm" style="color: white; font-size: 13px;">O2: <span id="lab-post-o2" style="color: #00FFFF;">--</span> <span style="margin-left:10px;">CO2: </span><span id="lab-post-co2" style="color: #00FFFF;">--</span></div>
         </div>
     </div>
-    
-    <div id="game-status" class="game-overlay">SYSTEM IDLE</div>
 </div>
 
 <script>
+    // --- STATE & PHYSIOLOGY ---
     let active = false;
     let t = 0; 
     
     let spo2 = 0.95, hr = 85, sbp = 120, dbp = 80, map_p = 93, etco2 = 4.2;
     let pao2 = 10.6, paco2 = 6.0;
-    let current_flow = 0, disp_acc_p = 0, disp_pre_p = 0, disp_pst_p = 0, disp_del_p = 0;
+    let current_flow = 5.49, disp_acc_p = -82, disp_pre_p = 275, disp_pst_p = 220, disp_del_p = 55;
     let is_suck_down = false;
     
-    let lung_health = 1.0, co2_prod = 1.5, o2_demand = 2.5;
-    let settings = { rpm: 3800, sweep: 2.0, fdo2: 100, fio2: 40, rr: 25, vt: 245, peep: 10, ti: 1.0 };
-    let compliance = 17, ibw = 52;
+    let lung_health = 0.45, co2_prod = 3.9, o2_demand = 3.4;
+    let settings = { rpm: 3800, sweep: 6.0, fdo2: 100, fio2: 40, rr: 15, vt: 300, peep: 10, ti: 1.0 };
+    let compliance = 30, ibw = 52;
     let mem_res = 10.0;
     
-    let em = { kink: false, clot: false };
-    
-    let gameMode = 'idle'; 
-    let activeCrisis = 'none';
-    let timeToCrisis = 0;
-    let deathTimer = 0;
+    let em = { kink: false, clot: false, recirc: false, sepsis: false };
+    let labProcessing = { abg: false, pre: false, post: false };
     
     const BUF_SIZE = 800; 
     const buf = {
@@ -273,6 +273,7 @@
         vent_p: Array(BUF_SIZE).fill(10), vent_f: Array(BUF_SIZE).fill(0), vent_v: Array(BUF_SIZE).fill(0)
     };
 
+    // --- CONTROL SETUP ---
     function buildHamCtrl(label, key, delta, min, max) {
         return `
             <div class="ham-ctrl">
@@ -319,8 +320,21 @@
         }
     }
 
+    function toggleEm(type) {
+        em[type] = !em[type];
+        document.getElementById(`btn-em-${type}`).classList.toggle('btn-active', em[type]);
+        if(type==='clot' && !em[type]) mem_res = 10.0; 
+    }
+
     function setPhase(phase) {
-        if (phase === 'STABLE') {
+        document.querySelectorAll('[id^="btn-phase-"]').forEach(b => b.classList.remove('btn-active'));
+        document.getElementById(`btn-phase-${phase.toLowerCase()}`).classList.add('btn-active');
+        
+        if (phase === 'EARLY') {
+            lung_health = 0.05; co2_prod = 6.5; o2_demand = 4.8; compliance = 15;
+            settings.rpm=5000; settings.sweep=10.0; settings.fdo2=100;
+            settings.vt=150; settings.rr=25; settings.fio2=60; settings.peep=15;
+        } else if (phase === 'STABLE') {
             lung_health = 0.45; co2_prod = 3.9; o2_demand = 3.4; compliance = 30;
             settings.rpm=3800; settings.sweep=6.0; settings.fdo2=100;
             settings.vt=300; settings.rr=15; settings.fio2=40; settings.peep=10;
@@ -329,4 +343,337 @@
             settings.rpm=3000; settings.sweep=2.0; settings.fdo2=100;
             settings.vt=450; settings.rr=10; settings.fio2=30; settings.peep=10;
         }
-        Object.keys(settings).forEach(k => changeVal(k, 0, 0
+        Object.keys(settings).forEach(k => changeVal(k, 0, 0, 9000));
+        document.getElementById('ui-ibw').innerText = ibw;
+    }
+
+    function toggleEngine() {
+        active = !active;
+        const btn = document.getElementById('cm-engine-btn');
+        btn.innerText = active ? "STOP" : "START";
+        btn.style.backgroundColor = active ? "#0077b3" : "#cc0000";
+        btn.style.borderColor = active ? "#004d80" : "#990000";
+    }
+
+    function triggerSample(type) {
+        if (!active || labProcessing[type]) return;
+        labProcessing[type] = true;
+        let cachedO2 = 0, cachedCO2 = 0;
+        if (type === 'abg') { cachedO2 = pao2; cachedCO2 = paco2; } 
+        else if (type === 'pre') { cachedO2 = em.recirc ? 5.2 + (settings.fdo2 * 0.1) : 5.2; cachedCO2 = paco2 + 0.5; } 
+        else if (type === 'post') { cachedO2 = Math.max(11.5, (settings.fdo2 * 0.65) - (mem_res * 0.9)); cachedCO2 = 3.8; }
+        
+        let btn = document.getElementById(`btn-lab-${type}`);
+        let timer = 15;
+        btn.innerText = `${timer}s`; btn.style.backgroundColor = "#444";
+        
+        let interval = setInterval(() => {
+            timer--;
+            if (timer > 0) btn.innerText = `${timer}s`;
+            else {
+                clearInterval(interval);
+                btn.innerText = `TAKE ${type.toUpperCase()}`; btn.style.backgroundColor = "#004466";
+                labProcessing[type] = false;
+                document.getElementById(`lab-${type}-o2`).innerText = cachedO2.toFixed(1) + " kPa";
+                document.getElementById(`lab-${type}-co2`).innerText = cachedCO2.toFixed(1) + " kPa";
+            }
+        }, 1000);
+    }
+
+    function reposition() {
+        if (em.recirc) {
+            em.recirc = false; document.getElementById('btn-em-recirc').classList.remove('btn-active');
+        }
+    }
+
+    // --- 1 HZ LOGIC LOOP ---
+    setInterval(() => {
+        if (!active) return;
+
+        let act_vt = settings.vt + (Math.random()*10-5);
+        let peak_p = Math.round(settings.peep + (act_vt / compliance));
+        let cycle = settings.rr > 0 ? 60.0/settings.rr : 6.0;
+        let act_ti = Math.min(settings.ti, cycle - 0.1);
+        let ie_val = act_ti > 0 ? (act_ti / (cycle)).toFixed(2) : 0.3; 
+        let min_vol = (act_vt * settings.rr / 1000).toFixed(1);
+        
+        map_p = Math.round((em.sepsis ? 65 : 90) + (current_flow * 1.5));
+        sbp = Math.round(map_p * 1.2); dbp = Math.round(map_p * 0.8);
+        hr = (spo2 < 0.88 || em.sepsis) ? Math.min(140, hr + 1) : Math.max(70, hr - 1);
+        
+        let sweep_eff = Math.min(1.0, settings.sweep / 1.0); 
+        let ecmo_contribution = 0;
+        if (!is_suck_down && mem_res < 48.0 && settings.sweep > 0) {
+            ecmo_contribution = (settings.fdo2 / 100) * 15.0 * (current_flow / 5.0) * sweep_eff;
+            if (em.recirc) ecmo_contribution *= 0.3;
+        }
+
+        let native_contribution = (settings.fio2 / 100) * 50.0 * lung_health;
+        let target_pao2 = 4.0 + ecmo_contribution + native_contribution;
+        
+        let o2_rate = (target_pao2 < pao2) ? 0.4 : 0.1;
+        pao2 += (target_pao2 - pao2) * o2_rate; 
+
+        spo2 = 1.0 - Math.exp(-pao2 * 0.28);
+        spo2 = Math.max(0.40, Math.min(0.99, spo2));
+        
+        let clr = (settings.sweep * 0.65) + ((act_vt * settings.rr / 1000) * 0.50 * lung_health);
+        paco2 = clr < co2_prod ? Math.min(15.0, paco2 + 0.08) : Math.max(3.5, paco2 - 0.08);
+        
+        document.getElementById('ui-hr').innerText = hr;
+        document.getElementById('ui-spo2').innerText = Math.round(spo2*100);
+        document.getElementById('ui-abp-sysdia').innerText = `${sbp}/${dbp}`;
+        document.getElementById('ui-abp-map').innerText = `(${map_p})`;
+        
+        document.getElementById('ui-ppeak').innerText = peak_p;
+        document.getElementById('ui-peep-read').innerText = settings.peep;
+        document.getElementById('ui-rr-read').innerText = settings.rr;
+        document.getElementById('ui-mv').innerText = min_vol;
+        document.getElementById('ui-vte').innerText = Math.round(act_vt);
+        document.getElementById('ui-ie').innerText = ie_val;
+        document.getElementById('ui-cdyn').innerText = compliance;
+
+        document.getElementById('cm-flow').innerText = current_flow.toFixed(2);
+        document.getElementById('bar-flow').style.width = (current_flow / 10 * 100) + '%';
+        document.getElementById('cm-acc').innerText = Math.round(disp_acc_p);
+        document.getElementById('cm-pre').innerText = Math.round(disp_pre_p);
+        document.getElementById('cm-pst').innerText = Math.round(disp_pst_p);
+        document.getElementById('cm-del').innerText = Math.round(disp_del_p);
+
+        const cm_alrm = document.getElementById('cm-alarm');
+        if (is_suck_down) {
+            cm_alrm.innerText = "ACCESS INSUFFICIENCY"; cm_alrm.style.color = "#cc0000";
+        } else if (disp_pre_p > 350) { 
+            cm_alrm.innerText = "HIGH PRE OX PRESSURE"; cm_alrm.style.color = "#cc0000";
+        } else { 
+            cm_alrm.innerText = "No Alerts"; cm_alrm.style.color = "#003366";
+        }
+        
+    }, 1000);
+
+    // --- DRAWING FUNCTIONS ---
+    function drawWave(canvas, data, color, minVal, maxVal, fill = false, thick = false) {
+        let ctx = canvas.getContext('2d');
+        let rect = canvas.getBoundingClientRect();
+        let dpr = window.devicePixelRatio || 1;
+        
+        if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+        }
+        
+        let w = canvas.width;
+        let h = canvas.height;
+        let range = maxVal - minVal;
+        
+        ctx.clearRect(0, 0, w, h);
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = (thick ? 3 : 1.8) * dpr;
+        
+        for(let i=0; i<data.length; i++) {
+            let x = (i / (data.length-1)) * w;
+            let clamped = Math.max(minVal, Math.min(maxVal, data[i]));
+            let y = h - ((clamped - minVal) / range) * h;
+            if(i===0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        
+        if (fill) {
+            let zeroY = h - ((0 - minVal) / range) * h;
+            ctx.lineTo(w, zeroY);
+            ctx.lineTo(0, zeroY);
+            ctx.fillStyle = color + '44'; 
+            ctx.fill();
+        }
+    }
+
+    function drawEcmoGridAndWave(canvas, data) {
+        let ctx = canvas.getContext('2d');
+        let rect = canvas.getBoundingClientRect();
+        let dpr = window.devicePixelRatio || 1;
+        if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
+            canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
+        }
+        let w = canvas.width; let h = canvas.height;
+        
+        ctx.clearRect(0, 0, w, h);
+        ctx.strokeStyle = '#caddf0'; ctx.lineWidth = 1 * dpr;
+        for(let i=0; i<=10; i+=2) {
+            let y = h - (i/10)*h;
+            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+        }
+        
+        ctx.beginPath();
+        ctx.fillStyle = '#214b7a'; 
+        ctx.strokeStyle = '#003366'; 
+        ctx.lineWidth = 2 * dpr;
+        ctx.moveTo(0, h); 
+
+        for(let i=0; i<data.length; i++) {
+            let x = (i / (data.length-1)) * w;
+            let val = Math.max(0, Math.min(10.0, data[i]));
+            let y = h - (val/10.0)*h;
+            ctx.lineTo(x, y);
+        }
+
+        ctx.lineTo(w, h); 
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    // --- 50 HZ RENDER LOOP ---
+    setInterval(() => {
+        if (!active) return;
+        
+        let eff = em.kink ? 0.30 : 1.0;
+        eff = Math.max(0.1, eff - ((mem_res - 10.0) / 140.0));
+        let target_flow = (settings.rpm / 1000.0) * eff;
+        let base_acc_p = (target_flow * -15);
+        is_suck_down = (target_flow > 5.0 || base_acc_p < -99);
+        if (em.clot) mem_res += 0.015; 
+
+        let peak = parseFloat(document.getElementById('ui-ppeak').innerText) || 22;
+        let cycle = settings.rr > 0 ? 60.0/settings.rr : 6.0;
+        let act_ti = Math.min(settings.ti, cycle - 0.1);
+        let tau_i = act_ti / 3; 
+        let tau_e = (cycle - act_ti) / 3; 
+        let beat = 60.0 / hr; 
+
+        let dt = 0.005; 
+        for (let s = 0; s < 10; s++) {
+            t += dt;
+            
+            let c_flow;
+            if (is_suck_down) {
+                c_flow = Math.max(0.1, target_flow * 0.2 + (Math.random() * target_flow * 0.8));
+                disp_acc_p = base_acc_p - (Math.random() * 250);
+            } else {
+                c_flow = target_flow + (Math.random() * 0.05 - 0.025);
+                disp_acc_p = base_acc_p + (Math.random() * 2 - 1);
+            }
+            current_flow = c_flow;
+            disp_pst_p = (current_flow * 40) + (em.kink ? 350 : 0);
+            disp_pre_p = disp_pst_p + (current_flow * mem_res);
+            disp_del_p = disp_pre_p - disp_pst_p;
+            buf.flow.push(current_flow); buf.flow.shift();
+
+            let vt_t = t % cycle;
+            let dead_space_gradient = 3.5 - (lung_health * 2.5); 
+            let target_etco2 = Math.max(0.5, paco2 - dead_space_gradient);
+            
+            let p, f, v, co2_wave = 0;
+            
+            if (vt_t < act_ti) {
+                p = settings.peep + (peak - settings.peep) * (1 - Math.exp(-vt_t / 0.05));
+                let max_flow = (settings.vt / 1000) * 60 / act_ti * 1.5; 
+                f = max_flow * Math.exp(-vt_t / tau_i);
+                v = settings.vt * (1 - Math.exp(-vt_t / tau_i));
+                
+                if (vt_t < 0.1) {
+                    co2_wave = target_etco2 * (1 - (vt_t / 0.1));
+                } else {
+                    co2_wave = 0;
+                }
+            } else {
+                let t_exp = vt_t - act_ti;
+                p = settings.peep + (peak - settings.peep) * Math.exp(-t_exp / 0.05);
+                let max_exp_flow = -(settings.vt / 1000) * 60 / (cycle - act_ti) * 2;
+                f = max_exp_flow * Math.exp(-t_exp / tau_e);
+                v = settings.vt * Math.exp(-t_exp / tau_e);
+                
+                let f_e = t_exp / (cycle - act_ti);
+                if (f_e < 0.05) {
+                    co2_wave = target_etco2 * 0.8 * Math.sin((f_e / 0.05) * (Math.PI / 2));
+                } else {
+                    co2_wave = target_etco2 * (0.8 + 0.2 * ((f_e - 0.05) / 0.95));
+                }
+            }
+            
+            if (vt_t > cycle - dt * 2 && vt_t <= cycle) {
+                let display_etco2 = target_etco2 + (Math.random() * 0.2 - 0.1);
+                document.getElementById('ui-etco2').innerText = display_etco2.toFixed(1);
+            }
+
+            buf.vent_p.push(p); buf.vent_p.shift();
+            buf.vent_f.push(f); buf.vent_f.shift();
+            buf.vent_v.push(v); buf.vent_v.shift();
+            buf.etco2.push(co2_wave + (Math.random() * 0.05)); buf.etco2.shift();
+
+            function gauss(x, a, b, c) { return a * Math.exp(-Math.pow(x - b, 2) / (2 * c * c)); }
+            let phase = (t % beat) / beat; 
+            
+            let ecg = gauss(phase, 12, 0.15, 0.02)   
+                    + gauss(phase, -15, 0.32, 0.005) 
+                    + gauss(phase, 100, 0.34, 0.006) 
+                    + gauss(phase, -25, 0.37, 0.006) 
+                    + gauss(phase, 20, 0.55, 0.04);  
+            
+            let wander = 1.0 * Math.sin(t * Math.PI * 0.5); 
+            buf.ecg.push(ecg + wander); 
+            buf.ecg.shift();
+            
+            let plt = 0;
+            if (phase < 0.3) {
+                plt = 60 * Math.sin((phase / 0.3) * Math.PI);
+            } else if (phase >= 0.3 && phase < 0.4) {
+                plt = 18 * Math.exp(-(phase - 0.3) / 0.1) + 5; 
+            } else {
+                plt = 25 * Math.exp(-(phase - 0.4) / 0.3);
+            }
+            buf.pleth.push(plt * Math.max(0.1, (spo2-0.5)/0.5)); 
+            buf.pleth.shift();
+            
+            let pulse_p = sbp - dbp;
+            let abp = dbp;
+            if (phase < 0.2) {
+                abp = dbp + pulse_p * Math.sin((phase / 0.2) * (Math.PI / 2));
+            } else if (phase >= 0.2 && phase < 0.35) {
+                abp = dbp + pulse_p * (1 - 0.6 * ((phase - 0.2) / 0.15));
+            } else if (phase >= 0.35 && phase < 0.45) {
+                let notch_base = dbp + pulse_p * 0.4;
+                abp = notch_base + (pulse_p * 0.1) * Math.sin(((phase - 0.35) / 0.1) * Math.PI);
+            } else {
+                let notch_end = dbp + pulse_p * 0.4;
+                abp = dbp + (notch_end - dbp) * Math.exp(-(phase - 0.45) / 0.3);
+            }
+            buf.abp.push(abp); 
+            buf.abp.shift();
+        }
+
+        drawWave(document.getElementById('cvs-vent-p'), buf.vent_p, '#e09f3e', -10, 60);
+        drawWave(document.getElementById('cvs-vent-f'), buf.vent_f, '#4caf50', -100, 100);
+        drawWave(document.getElementById('cvs-vent-v'), buf.vent_v, '#4db6ac', 0, 800, true);
+
+        drawWave(document.getElementById('cvs-ecg'), buf.ecg, '#33ff33', -40, 120);
+        drawWave(document.getElementById('cvs-pleth'), buf.pleth, '#00eeff', 0, 100);
+        drawWave(document.getElementById('cvs-abp'), buf.abp, '#ff3333', 0, 180);
+        drawWave(document.getElementById('cvs-etco2'), buf.etco2, '#ffcc00', 0, 10, true);
+
+        drawEcmoGridAndWave(document.getElementById('cvs-ecmo'), buf.flow);
+
+    }, 50);
+
+    window.onload = () => {
+        document.getElementById('cm-rpm').innerText = settings.rpm;
+        document.getElementById('bar-rpm').style.width = (settings.rpm / 9000 * 100) + '%';
+        document.getElementById('ui-etco2').innerText = etco2.toFixed(1);
+    };
+</script>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(registration => {
+                    console.log('ServiceWorker registered successfully');
+                })
+                .catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+        });
+    }
+</script>
+</body>
+</html>
