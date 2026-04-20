@@ -10,6 +10,7 @@
     
     <title>RPH Mobile Simulator</title>
     <style>
+        /* MOBILE FIRST BASE LAYOUT */
         body { 
             background-color: #0a0f1e; 
             color: white; 
@@ -30,15 +31,18 @@
         .panel-title { color: #888; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; }
         .flex-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
         
+        /* TYPOGRAPHY */
         .val-med { font-family: 'Courier New', monospace; font-size: 22px; font-weight: bold; }
         .lbl-sm { font-size: 11px; color: #aaa; font-weight: bold; }
         
+        /* BIGGER CONTROLS FOR TOUCH */
         .ctrl-box { background-color: #111; padding: 10px; border-radius: 4px; text-align: center; flex: 1 1 45%; border: 1px solid #222; }
         button { background-color: #333; color: white; border: none; padding: 12px 10px; cursor: pointer; border-radius: 4px; font-weight: bold; font-size: 13px; transition: 0.1s; }
         button:active { background-color: #666; }
         .btn-ctrl { padding: 8px 16px; margin: 0 4px; font-size: 16px; }
-        .scenario-btn { flex: 1 1 45%; padding: 14px 5px; } 
+        .scenario-btn { flex: 1 1 45%; padding: 14px 5px; font-size: 11px; } 
 
+        /* MINDRAY MOBILE */
         .mindray-panel { height: 420px; display: flex; flex-direction: column; gap: 4px; padding: 0; background-color: #000; border-radius: 5px; overflow: hidden;}
         .mindray-row { display: flex; gap: 4px; flex: 1; min-height: 0; } 
         .mindray-wave-box { flex: 1; background-color: #0a0a0a; border-radius: 4px; position: relative; overflow: hidden; border: 1px solid #1a1e24; }
@@ -49,6 +53,7 @@
         .mindray-sub { font-size: 14px; text-align: right; margin-top: 2px; }
         .mindray-canvas { width: 100%; height: 100%; display: block; }
 
+        /* HAMILTON MOBILE */
         .ham-panel { height: auto; min-height: 550px; background-color: #2b2d33; padding: 0; display: flex; flex-direction: column; border: 1px solid #444; border-radius: 5px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
         .ham-topbar { background-color: #383a40; padding: 6px 10px; display: flex; justify-content: flex-end; font-size: 11px; color: #ccc; border-bottom: 1px solid #1a1b1e; flex: 0 0 auto; }
         .ham-waves { height: 250px; display: flex; flex-direction: column; background-color: #2b2d33; padding: 5px; gap: 2px; flex: 0 0 auto; }
@@ -71,6 +76,7 @@
         .ham-ctrl-btns { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
         .ham-btn { width: 35px; height: 32px; font-size: 18px; padding: 0; }
 
+        /* CENTRIMAG MOBILE */
         .cm-bezel { height: 350px; background-color: #c4c9cc; border: 2px solid #a0a5a8; border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 8px; }
         .cm-controls { display: flex; justify-content: space-between; align-items: center; flex: 0 0 auto; }
         .cm-screen { flex: 1; background-color: #eaf3f8; border: 2px solid #555; display: flex; flex-direction: column; overflow: hidden; border-radius: 4px; }
@@ -79,13 +85,12 @@
         .cm-unit { font-size: 12px; font-weight: bold; }
         .cm-bar-bg { width: 100%; height: 6px; background-color: #d1dde5; border-radius: 3px; margin-top: 5px; }
         .cm-bar-fill { height: 100%; background-color: #d9415c; border-radius: 3px; }
-        .cm-btn { background-color: #0077b3; color: white; border: 2px solid #004d80; width: 45px; height: 40px; border-radius: 5px; font-size: 20px; display: flex; justify-content: center; align-items: center; cursor: pointer; flex: 0 0 auto; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .cm-btn:active { background-color: #005999; transform: translateY(2px); box-shadow: none; }
         .cm-pressures { display: flex; justify-content: space-around; background-color: #dbeaf2; padding: 6px; border-bottom: 2px solid #fff; flex: 0 0 auto; }
         .cm-pressures .cm-val { font-size: 20px; }
         .cm-pressures .cm-unit { font-size: 10px; }
         
-        .game-overlay { margin-top: 10px; padding: 15px; background-color: #111; color: #fff; text-align: center; font-weight: bold; font-size: 18px; border-radius: 4px; border: 2px solid #333; }
+        .lab-btn { width: 100px; background-color: #004466; padding: 12px 5px; font-size: 11px; }
+        .game-overlay { margin-top: 10px; padding: 15px; background-color: #111; color: #fff; text-align: center; font-weight: bold; font-size: 16px; border-radius: 4px; border: 2px solid #333; }
     </style>
 </head>
 <body>
@@ -175,8 +180,8 @@
 <div class="cm-bezel">
     <div class="cm-controls">
         <div style="display:flex; gap:10px;">
-            <div class="cm-btn" onclick="changeVal('rpm', -100, 0, 9000)">▼</div>
-            <div class="cm-btn" onclick="changeVal('rpm', 100, 0, 9000)">▲</div>
+            <div style="width: 45px; height: 40px; background: #999; border-radius: 5px;"></div>
+            <div style="width: 45px; height: 40px; background: #999; border-radius: 5px;"></div>
         </div>
     </div>
     
@@ -213,16 +218,34 @@
 </div>
 
 <div class="panel" style="margin-bottom: 20px;">
-    <div class="panel-title" style="color: #FFA500;">Clinical Actions</div>
+    <div class="panel-title" style="color: #FFA500;">Clinical Interventions</div>
     
     <div class="flex-wrap" style="margin-bottom: 10px;">
         <button class="scenario-btn" style="flex: 1 1 100%; background-color: #006600; font-size: 16px; padding: 16px;" onclick="startGame()">START SIMULATION</button>
     </div>
     
     <div class="flex-wrap" style="padding-bottom: 10px; border-bottom: 1px solid #333;">
-        <button class="scenario-btn" onclick="resolveKink()" style="background-color: #004466;">UNKINK TUBING</button>
+        <button class="scenario-btn" onclick="resolveKink()" style="background-color: #004466;">CHECK / UNKINK LINES</button>
         <button class="scenario-btn" onclick="resolveClot()" style="background-color: #004466;">CHANGE CIRCUIT</button>
-        <button class="scenario-btn" onclick="resolveWean()" style="flex: 1 1 100%; background-color: #004466;">DECANNULATE PATIENT</button>
+        <button class="scenario-btn" onclick="resolveWean()" style="background-color: #004466;">DECANNULATE PATIENT</button>
+        <button class="scenario-btn" onclick="dudAction('FLUID BOLUS GIVEN')" style="background-color: #444444;">GIVE FLUID BOLUS</button>
+        <button class="scenario-btn" onclick="dudAction('VASOPRESSORS STARTED')" style="background-color: #444444;">START VASOPRESSORS</button>
+        <button class="scenario-btn" onclick="dudAction('SEDATION INCREASED')" style="background-color: #444444;">INCREASE SEDATION</button>
+    </div>
+    
+    <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <button class="lab-btn" id="btn-lab-abg" onclick="triggerSample('abg')">TAKE ABG</button>
+            <div class="lbl-sm" style="color: white; font-size: 13px;">O2: <span id="lab-abg-o2" style="color: #00FFFF;">--</span> <span style="margin-left:10px;">CO2: </span><span id="lab-abg-co2" style="color: #00FFFF;">--</span></div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <button class="lab-btn" id="btn-lab-pre" onclick="triggerSample('pre')">TAKE PRE</button>
+            <div class="lbl-sm" style="color: white; font-size: 13px;">O2: <span id="lab-pre-o2" style="color: #00FFFF;">--</span> <span style="margin-left:10px;">CO2: </span><span id="lab-pre-co2" style="color: #00FFFF;">--</span></div>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <button class="lab-btn" id="btn-lab-post" onclick="triggerSample('post')">TAKE POST</button>
+            <div class="lbl-sm" style="color: white; font-size: 13px;">O2: <span id="lab-post-o2" style="color: #00FFFF;">--</span> <span style="margin-left:10px;">CO2: </span><span id="lab-post-co2" style="color: #00FFFF;">--</span></div>
+        </div>
     </div>
     
     <div id="game-status" class="game-overlay">SYSTEM IDLE</div>
@@ -244,7 +267,7 @@
     
     let em = { kink: false, clot: false };
     
-    let gameMode = 'idle'; // idle, running, won, dead
+    let gameMode = 'idle'; 
     let activeCrisis = 'none';
     let timeToCrisis = 0;
     let deathTimer = 0;
@@ -309,54 +332,4 @@
             settings.vt=300; settings.rr=15; settings.fio2=40; settings.peep=10;
         } else if (phase === 'WEAN') {
             lung_health = 1.0; co2_prod = 1.5; o2_demand = 2.5; compliance = 60;
-            settings.rpm=3000; settings.sweep=2.0; settings.fdo2=100;
-            settings.vt=450; settings.rr=10; settings.fio2=30; settings.peep=10;
-        }
-        Object.keys(settings).forEach(k => changeVal(k, 0, 0, 9000));
-    }
-
-    function startGame() {
-        if (gameMode === 'running') return;
-        
-        setPhase('STABLE'); 
-        em.kink = false;
-        em.clot = false;
-        mem_res = 10.0;
-        active = true; 
-        deathTimer = 0;
-        
-        let scenarios = ['kink', 'clot', 'wean'];
-        activeCrisis = scenarios[Math.floor(Math.random() * scenarios.length)];
-        timeToCrisis = 5 + Math.floor(Math.random() * 10); 
-        
-        gameMode = 'running';
-        updateGameMsg("PATIENT STABLE. ASSESSING...", "#00FFFF");
-    }
-
-    function resolveKink() {
-        if (gameMode !== 'running') return;
-        if (activeCrisis === 'kink' && timeToCrisis === 0) {
-            em.kink = false;
-            winGame("CRISIS AVERTED: Tubing flow restored.");
-        } else {
-            triggerDeath("FATAL ERROR: Inappropriate intervention.");
-        }
-    }
-    
-    function resolveClot() {
-        if (gameMode !== 'running') return;
-        if (activeCrisis === 'clot' && timeToCrisis === 0) {
-            em.clot = false;
-            mem_res = 10.0;
-            winGame("CRISIS AVERTED: New circuit oxygenating well.");
-        } else {
-            triggerDeath("FATAL ERROR: Inappropriate circuit change.");
-        }
-    }
-    
-    function resolveWean() {
-        if (gameMode !== 'running') return;
-        if (activeCrisis === 'wean' && timeToCrisis === 0) {
-            if (settings.sweep === 0 && spo2 > 0.90) {
-                winGame("SUCCESS: Patient decannulated safely.");
-            } e
+            settings.rpm=30
